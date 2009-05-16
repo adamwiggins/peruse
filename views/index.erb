@@ -1,8 +1,8 @@
-<h1>The Dangers of Being Really, Really Tired</h1>
+<h1><%= @post.title %></h1>
 
-<h2>from <span>Slashdot</span> by <span>CmdrTaco</span></h2>
+<h2>from <span><%= @feed.title %></span> by <span><%= @post.author.name %></span></h2>
 
-<p>"Brian Palmer, writing for Slate, asks 'Can you die from lack of sleep?' and shockingly, the answer may very well be Yes, you can. Palmer points to 'ground breaking experiments' in the area of sleep research. It turns out that sleep deprivation can actually be deadly in rats. The obvious conclusion is that it is probably deadly in all mammals. So the next time you think you need to pull multiple all-night hack-a-thons, ask yourself if it's worth risking your life for."</p>
+<p><%= @post.content %></p>
 
 <hr/>
 
