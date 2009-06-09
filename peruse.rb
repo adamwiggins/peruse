@@ -1,11 +1,10 @@
 require 'sinatra'
-require 'feed_tools'
+require File.dirname(__FILE__) + '/lib/all'
 
 layout 'layout'
 
 get '/' do
-	@feed = FeedTools::Feed.open('http://www.igvita.com/')
-	@post = @feed.items[0]
+	@post = Post.first
 	erb :index
 end
 
