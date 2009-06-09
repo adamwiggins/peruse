@@ -19,3 +19,12 @@ get '/posts/:id/update' do
 	redirect '/'
 end
 
+get '/feeds/add' do
+	erb :add_feed
+end
+
+post '/feeds' do
+	Feed.create! :url => params[:url].strip
+	redirect '/'
+end
+

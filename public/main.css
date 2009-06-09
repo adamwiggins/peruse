@@ -20,3 +20,10 @@ h2 {
 	color: #555;
 }
 
+input[type=text] {
+	font-size: 100%;
+	color: #555;
+}
+input[type=submit] {
+	font-size: 100%;
+}
