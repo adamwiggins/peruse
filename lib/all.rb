@@ -9,4 +9,5 @@ else
 end
 
 require File.dirname(__FILE__) + '/feed'
+require File.dirname(__FILE__) + '/post'
 
