@@ -28,3 +28,12 @@ post '/feeds' do
 	redirect '/'
 end
 
+get '/import' do
+	erb :import
+end
+
+post '/import' do
+	Feed.import(params[:file][:tempfile].read)
+	redirect '/'
+end
+

@@ -1,5 +1,6 @@
 require 'activerecord'
 require 'feed_tools'
+require 'nokogiri'
 
 if File.exists? 'config/database.yml'
 	dbconfig = YAML.load(File.read('config/database.yml'))

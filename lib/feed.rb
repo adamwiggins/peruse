@@ -16,4 +16,10 @@ class Feed < ActiveRecord::Base
 			end
 		end
 	end
+
+	def self.import(opml)
+		Nokogiri::HTML.parse(opml).search('outline').each do |item|
+			Feed.create! :url => item[:xmlurl]
+		end
+	end
 end
