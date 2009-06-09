@@ -7,6 +7,9 @@
 <hr/>
 
 <div class="controls">
-	<a href="#">Thumbs up</a> | <a href="#">Meh</a> | <a href="#">Thumbs down</a> | <a href="#">No opinion</a>
+	<a href="/posts/<%= @post.id %>/update?rating=thumbs_up">Thumbs up</a> |
+	<a href="/posts/<%= @post.id %>/update?rating=meh">Meh</a> |
+	<a href="/posts/<%= @post.id %>/update?rating=thumbs_down">Thumbs down</a> |
+	<a href="/posts/<%= @post.id %>/update?rating=no_opinion">No opinion</a>
 </div>
 
