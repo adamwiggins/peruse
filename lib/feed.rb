@@ -23,6 +23,14 @@ class Feed < ActiveRecord::Base
 		end
 	end
 
+	def self.find_has_unread_posts
+		find(:all, :conditions => "(select count(*) from posts where feed_id=feeds.id and rating is null)>0")
+	end
+
+	def self.pick_one
+		find_has_unread_posts.rand
+	end
+
 	def self.find_stale
 		find(:all, :conditions => [ "updated_at < ?", 30.minutes.ago ])
 	end
