@@ -4,6 +4,10 @@ class Feed < ActiveRecord::Base
 	after_create :refresh
 
 	def refresh
+		Delayed::Job.enqueue self
+	end
+
+	def perform
 		feed = FeedTools::Feed.open(url)
 
 		transaction do

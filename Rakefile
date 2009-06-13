@@ -1,5 +1,8 @@
+require File.dirname(__FILE__) + "/vendor/delayed_job/tasks/tasks"
+
 task :environment do
 	require File.dirname(__FILE__) + '/lib/all'
+	ActiveRecord::Base.logger = Logger.new(STDOUT)
 end
 
 namespace :db do
