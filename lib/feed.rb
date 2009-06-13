@@ -10,6 +10,8 @@ class Feed < ActiveRecord::Base
 	def perform
 		feed = FeedTools::Feed.open(url)
 
+		puts "Updating #{feed.title}"
+
 		transaction do
 			update_attribute(:title, feed.title)
 
@@ -19,6 +21,14 @@ class Feed < ActiveRecord::Base
 				end
 			end
 		end
+	end
+
+	def self.find_stale
+		find(:all, :conditions => [ "updated_at < ?", 30.minutes.ago ])
+	end
+
+	def self.refresh_stale
+		find_stale.each { |feed| feed.refresh }
 	end
 
 	def self.import(opml)

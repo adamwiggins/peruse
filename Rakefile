@@ -19,3 +19,9 @@ task :console => :environment do
 	IRB.start
 end
 
+desc "Cron"
+task :cron => :environment do
+	Feed.refresh_stale
+end
+
+
