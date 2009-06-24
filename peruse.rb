@@ -28,6 +28,11 @@ post '/feeds' do
 	redirect '/'
 end
 
+get '/feeds' do
+	@feeds = Feed.find(:all, :order => 'score desc')
+	erb :feeds
+end
+
 get '/import' do
 	erb :import
 end

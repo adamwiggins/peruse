@@ -1,0 +1,11 @@
+<h2>feeds</h2>
+
+<table>
+	<% @feeds.each do |feed| %>
+		<tr>
+			<td><%= '+' if feed.score > 0 %><%= feed.score %></td>
+			<td><a href="<%= feed.url %>"><%= feed.title %></a></td>
+		</tr>
+	<% end %>
+</table>
+

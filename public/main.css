@@ -27,3 +27,12 @@ input[type=text] {
 input[type=submit] {
 	font-size: 100%;
 }
+
+th {
+	font-size: 80%;
+	font-weight: normal;
+	text-align: left;
+}
+td, th {
+	padding-right: 0.5em;
+}
