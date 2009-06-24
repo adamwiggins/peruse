@@ -3,6 +3,14 @@ class Post < ActiveRecord::Base
 
 	validates_inclusion_of :rating, :in => %w(thumbs_up meh thumbs_down no_opinion), :allow_nil => true
 
+	after_save :update_feed_score
+
+	def update_feed_score
+		if rating_changed?
+			feed.save_score
+		end
+	end
+
 	def self.pick_one
 		feed = Feed.pick_one
 		return nil unless feed

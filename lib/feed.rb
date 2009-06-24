@@ -23,6 +23,18 @@ class Feed < ActiveRecord::Base
 		end
 	end
 
+	def calc_score
+		up = posts.count(:conditions => { :rating => 'thumbs_up' })
+		meh = posts.count(:conditions => { :rating => 'meh' })
+		down = posts.count(:conditions => { :rating => 'thumbs_down' })
+		(up * 2) - meh - (down * 2)
+	end
+
+	def save_score
+		self.score = calc_score
+		save!
+	end
+
 	def self.find_has_unread_posts
 		find(:all, :conditions => "(select count(*) from posts where feed_id=feeds.id and rating is null)>0")
 	end
