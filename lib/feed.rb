@@ -40,7 +40,22 @@ class Feed < ActiveRecord::Base
 	end
 
 	def self.pick_one
-		find_has_unread_posts.rand
+		pick_from(find_has_unread_posts)
+	end
+
+	def self.rand_range(min, max)
+		rand(max - min) + min
+	end
+
+	def self.pick_from(feeds)
+		return nil if feeds.empty?
+
+		1000.times do
+			feed = feeds.rand
+			return feed if (feed.score || 0) > rand_range(-10, 10) or rand_range(0, 99) == 0
+		end
+
+		raise "Infinte loop trying to pick a feed"
 	end
 
 	def self.find_stale
