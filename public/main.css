@@ -8,6 +8,7 @@ body {
 	margin: 0;
 	padding: 0.8em 1em;
 	font-family: sans-serif;
+	line-height: 1.25em;
 }
 
 h1, h2 {
@@ -23,6 +24,7 @@ h1 {
 h2 {
 	font-size: 120%;
 	color: #555;
+	margin-top: 0.2em;
 }
 
 input[type=text] {
@@ -41,3 +43,9 @@ th {
 td, th {
 	padding-right: 0.5em;
 }
+
+.post-body {
+	margin-top: 1em;
+	max-width: 55em;
+}
+
