@@ -3,20 +3,31 @@ require File.dirname(__FILE__) + '/lib/all'
 
 layout 'layout'
 
-get '/' do
-	@post = Post.pick_one
-	if @post
-		erb :index
-	else
-		erb :nothing
+helpers do
+	def go_to_fresh_post
+		post = Post.pick_one
+		if post
+			redirect "/posts/#{post.id}"
+		else
+			erb :nothing
+		end
 	end
+end
+
+get '/' do
+	go_to_fresh_post
+end
+
+get '/posts/:id' do
+	@post = Post.find(params[:id])
+	erb :post
 end
 
 get '/posts/:id/update' do
 	post = Post.find(params[:id])
 	post.rating = params[:rating]
 	post.save!
-	redirect '/'
+	go_to_fresh_post
 end
 
 get '/feeds/add' do
@@ -25,7 +36,7 @@ end
 
 post '/feeds' do
 	Feed.create! :url => params[:url].strip
-	redirect '/'
+	go_to_fresh_post
 end
 
 get '/feeds' do
@@ -39,6 +50,6 @@ end
 
 post '/import' do
 	Feed.import(params[:file][:tempfile].read)
-	redirect '/'
+	go_to_fresh_post
 end
 
