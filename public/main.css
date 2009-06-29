@@ -1,8 +1,13 @@
+@media handheld, only screen and (max-device-width: 480px) {
+	body {
+		font-size: 250%;
+	}
+}
+
 body {
 	margin: 0;
 	padding: 0.8em 1em;
 	font-family: sans-serif;
-	font-size: 250%;
 }
 
 h1, h2 {
