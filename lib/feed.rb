@@ -1,6 +1,8 @@
 class Feed < ActiveRecord::Base
 	has_many :posts, :dependent => :destroy
 
+	validates_uniqueness_of :url
+
 	after_create :refresh
 
 	def refresh

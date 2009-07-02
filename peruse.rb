@@ -35,7 +35,7 @@ get '/feeds/add' do
 end
 
 post '/feeds' do
-	Feed.create! :url => params[:url].strip
+	Feed.create :url => params[:url].strip
 	go_to_fresh_post
 end
 
