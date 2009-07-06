@@ -44,6 +44,11 @@ get '/feeds' do
 	erb :feeds
 end
 
+get '/posts' do
+	@posts = Post.find(:all, :conditions => "rating='thumbs_up'", :order => 'updated_at desc')
+	erb :posts
+end
+
 get '/import' do
 	erb :import
 end

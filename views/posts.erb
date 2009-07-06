@@ -1,0 +1,11 @@
+<h2>recently thumbs-uped posts</h2>
+
+<table>
+	<% @posts.each do |post| %>
+		<tr>
+			<td><%= post.updated_at %></td>
+			<td><a href="<%= post.url %>"><%= post.title %></a></td>
+		</tr>
+	<% end %>
+</table>
+
