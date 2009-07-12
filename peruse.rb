@@ -30,6 +30,10 @@ get '/posts/:id/update' do
 	go_to_fresh_post
 end
 
+get '/admin' do
+	erb :admin
+end
+
 get '/feeds/add' do
 	erb :add_feed
 end

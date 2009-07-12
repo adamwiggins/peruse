@@ -49,3 +49,7 @@ td, th {
 	max-width: 55em;
 }
 
+.admin-link {
+	float: right;
+}
+
