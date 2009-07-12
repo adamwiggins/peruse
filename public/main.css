@@ -53,3 +53,10 @@ td, th {
 	float: right;
 }
 
+pre {
+	font-family: Monaco, monospace;
+	background: #ddd;
+	border-left: 3px solid #888;
+	padding: 0.3em;
+}
+
