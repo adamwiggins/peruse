@@ -1,2 +1,2 @@
-require 'peruse'
+require 'main'
 run Sinatra::Application
