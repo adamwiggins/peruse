@@ -12,16 +12,19 @@ class Feed < ActiveRecord::Base
 	def perform
 		feed = FeedTools::Feed.open(url)
 
-		puts "Updating #{feed.title}"
+		print "Updating #{feed.title}"
 
 		transaction do
 			update_attribute(:title, feed.title)
 
+			count = 0
 			feed.items.each do |item|
 				unless posts.find_by_url(item.link)
 					posts.create! :title => item.title, :url => item.link, :author => item.author.name, :body => item.content, :published_at => item.published
+					count += 1
 				end
 			end
+			puts " - #{count} new posts"
 		end
 	end
 
