@@ -19,7 +19,7 @@ class Feed < ActiveRecord::Base
 
 			feed.items.each do |item|
 				unless posts.find_by_url(item.link)
-					posts.create! :title => item.title, :url => item.link, :author => item.author.name, :body => item.content
+					posts.create! :title => item.title, :url => item.link, :author => item.author.name, :body => item.content, :published_at => item.published
 				end
 			end
 		end
