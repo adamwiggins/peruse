@@ -12,7 +12,7 @@ class Feed < ActiveRecord::Base
 	def perform
 		feed = FeedTools::Feed.open(url)
 
-		print "Updating #{feed.title}"
+		print "[#{Time.now}] Updating #{feed.title}..."
 
 		transaction do
 			update_attribute(:title, feed.title)
@@ -24,8 +24,12 @@ class Feed < ActiveRecord::Base
 					count += 1
 				end
 			end
-			puts " - #{count} new posts"
+			puts "#{count} new posts"
 		end
+	rescue Object => e
+		puts "failed"
+		puts "   #{e.class} (#{e.message}):"
+		puts e.backtrace.map { |l| "   #{l}" }.join("\n")
 	end
 
 	def calc_score
