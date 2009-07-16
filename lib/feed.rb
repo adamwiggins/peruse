@@ -19,10 +19,11 @@ class Feed < ActiveRecord::Base
 
 			count = 0
 			feed.items.each do |item|
-				unless posts.find_by_url(item.link)
-					posts.create! :title => item.title, :url => item.link, :author => item.author.name, :body => item.content, :published_at => item.published
-					count += 1
-				end
+				next if posts.find_by_url(item.link)
+				next if item.published and item.published < 2.months.ago
+
+				posts.create! :title => item.title, :url => item.link, :author => item.author.name, :body => item.content, :published_at => item.published
+				count += 1
 			end
 			puts "#{count} new posts"
 		end
