@@ -10,9 +10,9 @@ class Feed < ActiveRecord::Base
 	end
 
 	def perform
-		feed = FeedTools::Feed.open(url)
+		print "[#{Time.now}] Updating #{title || url}..."
 
-		print "[#{Time.now}] Updating #{feed.title}..."
+		feed = FeedTools::Feed.open(url)
 
 		transaction do
 			update_attribute(:title, feed.title)
