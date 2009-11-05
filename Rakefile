@@ -19,9 +19,15 @@ task :console => :environment do
 	IRB.start
 end
 
-desc "Cron"
-task :cron => :environment do
+desc "Fetch new posts"
+task 'posts:fetch' => :environment do
 	Feed.refresh_stale
 end
 
+desc "Clean out old posts"
+task 'posts:clean' => :environment do
+	Feed.clean_old
+end
 
+desc "Call nightly to fetch new posts and clean out old ones"
+task :cron => [ 'posts:clean', 'posts:fetch' ]

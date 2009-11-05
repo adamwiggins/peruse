@@ -5,12 +5,16 @@ class Feed < ActiveRecord::Base
 
 	after_create :refresh
 
-	def refresh
-		Delayed::Job.enqueue self
+	def to_s
+		title || url
 	end
 
-	def perform
-		print "[#{Time.now}] Updating #{title || url}..."
+	def refresh
+		send_later :perform_refresh
+	end
+
+	def perform_refresh
+		print "[#{Time.now}] Updating #{self}..."
 
 		feed = FeedTools::Feed.open(url)
 
@@ -27,6 +31,36 @@ class Feed < ActiveRecord::Base
 			end
 			puts "#{count} new posts"
 		end
+	rescue Object => e
+		puts "failed"
+		puts "   #{e.class} (#{e.message}):"
+		puts e.backtrace.map { |l| "   #{l}" }.join("\n")
+	end
+
+	def clean
+		send_later :perform_clean
+	end
+
+	def unread_max
+		(score || 0) + 10
+	end
+
+	def oldest_unread_posts(count)
+		posts.unread.find(:all, :limit => count, :order => "published_at,created_at")
+	end
+
+	def perform_clean
+		count = posts.unread.count
+
+		print "[#{Time.now}] #{self} has #{count}/#{unread_max} unread posts"
+
+		diff = count - unread_max
+		if diff > 0
+			print ", deleting #{diff}"
+			oldest_unread_posts(diff).each { |post| post.destroy }
+		end
+
+		puts "."
 	rescue Object => e
 		puts "failed"
 		puts "   #{e.class} (#{e.message}):"
@@ -74,6 +108,10 @@ class Feed < ActiveRecord::Base
 
 	def self.refresh_stale
 		find_stale.each { |feed| feed.refresh }
+	end
+
+	def self.clean_old
+		all.each { |feed| feed.clean }
 	end
 
 	def self.import(opml)

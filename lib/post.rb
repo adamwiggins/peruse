@@ -1,6 +1,8 @@
 class Post < ActiveRecord::Base
 	belongs_to :feed
 
+	named_scope :unread, :conditions => { :rating => nil }
+
 	validates_inclusion_of :rating, :in => %w(thumbs_up meh thumbs_down no_opinion), :allow_nil => true
 
 	after_save :update_feed_score
