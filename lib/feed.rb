@@ -42,7 +42,7 @@ class Feed < ActiveRecord::Base
 	end
 
 	def unread_max
-		(score || 0) + 10
+		8
 	end
 
 	def oldest_unread_posts(count)
