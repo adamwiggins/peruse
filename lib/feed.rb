@@ -80,7 +80,7 @@ class Feed < ActiveRecord::Base
 	end
 
 	def self.find_has_unread_posts
-		find(:all, :conditions => "(select count(*) from posts where feed_id=feeds.id and rating is null)>0")
+		find(:all, :conditions => "exists(select * from posts where feed_id=feeds.id and rating is null)")
 	end
 
 	def self.pick_one
