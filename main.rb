@@ -3,21 +3,13 @@ require 'json'
 
 require File.dirname(__FILE__) + '/lib/all'
 
-layout 'layout'
-
-helpers do
-	def go_to_fresh_post
-		post = Post.pick_one
-		if post
-			redirect "/posts/#{post.id}"
-		else
-			erb :nothing
-		end
-	end
-end
-
 get '/' do
-	go_to_fresh_post
+	post = Post.pick_one
+	if post
+		redirect "/posts/#{post.id}"
+	else
+		erb :nothing
+	end
 end
 
 get '/posts/:id' do
@@ -29,7 +21,7 @@ get '/posts/:id/update' do
 	post = Post.find(params[:id])
 	post.rating = params[:rating]
 	post.save!
-	go_to_fresh_post
+	redirect '/'
 end
 
 get '/admin' do
@@ -41,8 +33,8 @@ get '/feeds/add' do
 end
 
 post '/feeds' do
-	Feed.create :url => params[:url].strip
-	go_to_fresh_post
+	@feed = Feed.create :url => params[:url].strip
+	erb :feed_added
 end
 
 get '/feeds' do
