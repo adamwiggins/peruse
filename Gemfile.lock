@@ -1,0 +1,81 @@
+--- 
+specs: 
+- rake: 
+    version: 0.8.7
+- activesupport: 
+    version: 2.3.5
+- activerecord: 
+    version: 2.3.5
+- beanstalk-client: 
+    version: 1.0.2
+- builder: 
+    version: 2.1.2
+- clockwork: 
+    version: 0.1.1
+- daemons: 
+    version: 1.0.10
+- eventmachine: 
+    version: 0.12.10
+- uuidtools: 
+    version: 2.1.1
+- feedtools: 
+    version: 0.2.29
+- json_pure: 
+    version: 1.4.3
+- nokogiri: 
+    version: 1.4.1
+- pg: 
+    version: 0.9.0
+- rack: 
+    version: 1.1.0
+- sinatra: 
+    version: "1.0"
+- stalker: 
+    version: 0.2.2
+- thin: 
+    version: 1.2.7
+hash: 247c3d8e23e61d6d47d5b1c33a86c64c257c88b8
+sources: 
+- Rubygems: 
+    uri: http://gemcutter.org
+dependencies: 
+  feedtools: 
+    version: = 0.2.29
+    group: 
+    - :default
+  pg: 
+    version: = 0.9.0
+    group: 
+    - :default
+  nokogiri: 
+    version: = 1.4.1
+    group: 
+    - :default
+  activerecord: 
+    version: = 2.3.5
+    group: 
+    - :default
+  rake: 
+    version: = 0.8.7
+    group: 
+    - :default
+  thin: 
+    version: = 1.2.7
+    group: 
+    - :default
+  sinatra: 
+    version: = 1.0
+    group: 
+    - :default
+  stalker: 
+    version: = 0.2.2
+    group: 
+    - :default
+  json_pure: 
+    version: = 1.4.3
+    group: 
+    - :default
+  clockwork: 
+    version: = 0.1.1
+    group: 
+    - :default

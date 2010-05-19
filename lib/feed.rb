@@ -10,7 +10,7 @@ class Feed < ActiveRecord::Base
 	end
 
 	def refresh
-		send_later :perform_refresh
+		Stalker.enqueue('feed.fetch', :id => id)
 	end
 
 	def perform_refresh
@@ -38,7 +38,7 @@ class Feed < ActiveRecord::Base
 	end
 
 	def clean
-		send_later :perform_clean
+		Stalker.enqueue('feed.clean', :id => id)
 	end
 
 	def unread_max
@@ -106,8 +106,8 @@ class Feed < ActiveRecord::Base
 		find(:all, :conditions => [ "updated_at < ?", 30.minutes.ago ])
 	end
 
-	def self.refresh_stale
-		find_stale.each { |feed| feed.refresh }
+	def self.refresh
+		all.each { |feed| feed.refresh }
 	end
 
 	def self.clean_old
