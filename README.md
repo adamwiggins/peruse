@@ -51,32 +51,17 @@ considers running a Ruby web app a completely ordinary thing to do.
 Try it out
 ----------
 
-    gem install sinatra feedtools
     git clone git://github.com/adamwiggins/peruse.git
     cd peruse
+    bundle install
     rake db:migrate
-    rake jobs:work &
-    ruby main.rb
+	 bundle exec stalk jobs.rb &
+	 bundle exec clockwork clock.rb
+    bundle exec thin start
 
-Browse to: http://localhost:4567/  You can now add some feeds manually, or
+Browse to: http://localhost:3000/  You can now add some feeds manually, or
 import an OPML file.  Instructions are in the app for importing from Google
 Reader.
-
-Deploy it
----------
-
-I deploy to Heroku:
-
-    heroku create
-    git push heroku master
-    heroku rake db:migrate
-    heroku addons:add cron:nightly
-    heroku workers 1
-    heroku open
-
-The not-easily-guessable URL is good enough security for me (it's just feeds,
-after all), but if you like you can add Rack::Auth::Basic to main.rb for
-user/password protection.
 
 Ratings
 -------
