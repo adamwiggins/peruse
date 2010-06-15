@@ -1,6 +1,3 @@
-require File.dirname(__FILE__) + '/../.bundle/environment'
-Bundler.setup
-
 require 'active_record'
 require 'feed_tools'
 require 'nokogiri'
