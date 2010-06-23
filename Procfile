@@ -1,3 +1,3 @@
-web     ruby .bundle/gems/bin/thin start -p $PORT
-worker  ruby .bundle/gems/bin/stalk jobs.rb
-clock   ruby .bundle/gems/bin/clockwork clock.rb
+web     bundle exec thin start -p $PORT
+worker  bundle exec stalk jobs.rb
+clock   bundle exec clockwork clock.rb
