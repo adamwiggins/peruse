@@ -1,6 +1,6 @@
 include Stalker
 
-require 'lib/all'
+require File.dirname(__FILE__) + '/lib/all'
 
 job 'feeds.clean' do
 	Feed.clean_old

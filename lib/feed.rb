@@ -95,7 +95,7 @@ class Feed < ActiveRecord::Base
 		return nil if feeds.empty?
 
 		1000.times do
-			feed = feeds.rand
+			feed = feeds.sample
 			return feed if (feed.score || 0) > rand_range(-10, 10) or rand_range(0, 99) == 0
 		end
 

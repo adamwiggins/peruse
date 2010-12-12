@@ -16,6 +16,6 @@ class Post < ActiveRecord::Base
 	def self.pick_one
 		feed = Feed.pick_one
 		return nil unless feed
-		feed.posts.find_all_by_rating(nil).rand
+		feed.posts.find_all_by_rating(nil).sample
 	end
 end
