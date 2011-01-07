@@ -1,6 +1,6 @@
 source :gemcutter
 
-gem 'sinatra', '1.0'
+gem 'sinatra', '1.1.0'
 gem 'json_pure', '1.4.3'
 gem 'stalker', '0.6.1'
 gem 'clockwork', '0.2.3'
