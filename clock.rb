@@ -1,7 +1,7 @@
 require 'stalker'
 
 handler do |job|
-  Stalker.enqueue(job)
+	Stalker.enqueue(job)
 end
 
 every(1.day, 'feeds.clean', :at => '02:30')

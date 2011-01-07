@@ -4,6 +4,7 @@ require 'feedzirra'
 require 'feedbag'
 require 'stalker'
 require 'uri'
+require 'timeout'
 
 db = URI.parse(ENV['DATABASE_URL'] || 'postgres://localhost/peruse')
 

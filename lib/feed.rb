@@ -16,15 +16,28 @@ class Feed < ActiveRecord::Base
 	def perform_refresh
 		print "[#{Time.now}] Updating #{self}..."
 
-		feed = Feedzirra::Feed.fetch_and_parse(Feedbag.find(url).first)
+		feed_url = Feedbag.find(url).first
+		if feed_url.nil?
+			puts "unable to discover any associated feed"
+			return
+		end
+
+		feed = Timeout::timeout(30) do
+			Feedzirra::Feed.fetch_and_parse(feed_url)
+		end
+
+		if feed.nil? or feed == {}
+			puts "Feedzirra failed to parse feed"
+			return
+		end
 
 		transaction do
 			update_attribute(:title, feed.title)
 
 			count = 0
 			feed.entries.each do |item|
-        url = item.entry_id
-        published = Time.parse(item.published)
+				url = item.entry_id
+				published = item.published ? Time.parse(item.published) : nil
 
 				next if posts.find_by_url(url)
 				next if published and published < 2.months.ago
@@ -36,8 +49,8 @@ class Feed < ActiveRecord::Base
 		end
 	rescue Object => e
 		puts "failed"
-		puts "   #{e.class} (#{e.message}):"
-		puts e.backtrace.map { |l| "   #{l}" }.join("\n")
+		puts "	 #{e.class} (#{e.message}):"
+		puts e.backtrace.map { |l| "	 #{l}" }.join("\n")
 	end
 
 	def clean
@@ -66,8 +79,8 @@ class Feed < ActiveRecord::Base
 		puts "."
 	rescue Object => e
 		puts "failed"
-		puts "   #{e.class} (#{e.message}):"
-		puts e.backtrace.map { |l| "   #{l}" }.join("\n")
+		puts "	 #{e.class} (#{e.message}):"
+		puts e.backtrace.map { |l| "	 #{l}" }.join("\n")
 	end
 
 	def calc_score
