@@ -1,6 +1,7 @@
 require 'active_record'
-require 'feed_tools'
 require 'nokogiri'
+require 'feedzirra'
+require 'feedbag'
 require 'stalker'
 require 'uri'
 

@@ -16,17 +16,20 @@ class Feed < ActiveRecord::Base
 	def perform_refresh
 		print "[#{Time.now}] Updating #{self}..."
 
-		feed = FeedTools::Feed.open(url)
+		feed = Feedzirra::Feed.fetch_and_parse(Feedbag.find(url).first)
 
 		transaction do
 			update_attribute(:title, feed.title)
 
 			count = 0
-			feed.items.each do |item|
-				next if posts.find_by_url(item.link)
-				next if item.published and item.published < 2.months.ago
+			feed.entries.each do |item|
+        url = item.entry_id
+        published = Time.parse(item.published)
 
-				posts.create! :title => item.title, :url => item.link, :author => item.author.name, :body => item.content, :published_at => item.published
+				next if posts.find_by_url(url)
+				next if published and published < 2.months.ago
+
+				posts.create! :title => item.title, :url => url, :author => item.author, :body => item.content, :published_at => published
 				count += 1
 			end
 			puts "#{count} new posts"
